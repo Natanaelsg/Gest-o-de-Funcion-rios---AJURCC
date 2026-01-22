@@ -77,5 +77,3 @@ Plaintext
 └── manage.py                  # CLI do Django
 
 ✒️ Autor : NATANAEL DA SILVA GONCALVES
-
-    Seu Nome - Seu GitHub
