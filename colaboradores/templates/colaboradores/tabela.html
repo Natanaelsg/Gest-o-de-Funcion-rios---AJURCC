@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>AJURCC - Gestão de Funcionários</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            background-color: #e8f5e9;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2e7d32;
+            border-bottom: 2px solid #2e7d32;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #2e7d32;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            transition: 0.3s;
+        }
+        .btn-edit { background-color: #1976d2; }
+        .btn-save { background-color: #388e3c; }
+        .btn-delete { background-color: #d32f2f; }
+        
+        input[type="text"], input[type="email"] {
+            width: 250px;
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tarefa: Implementação da Tabela AJURCC</h1>
+        
+        <div style="margin-bottom: 20px; padding: 15px; border: 1px dashed #2e7d32; border-radius: 5px;">
+            <h3>Novo Funcionário</h3>
+            {% csrf_token %}
+            <input type="text" id="novo-nome" placeholder="Nome" />
+            <input type="text" id="novo-cargo" placeholder="Cargo" />
+            <input type="email" id="novo-email" placeholder="E-mail" />
+            <button class="btn btn-save" onclick="addFuncionario()">Adicionar</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in funcionarios %}
+                <tr id="row-{{ f.id }}">
+                    <td>{{ f.nome }}</td>
+                    <td>{{ f.cargo }}</td>
+                    <td>{{ f.email }}</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editRow('{{ f.id }}')">Editar</button>
+                        <button class="btn btn-delete" onclick="deleteRow('{{ f.id }}')">Excluir</button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align: center;">Nenhum funcionário cadastrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>
